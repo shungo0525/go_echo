@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 	"strconv"
-	// "./Controllers"
+	"./Controllers"
 	// "fmt"
 	// "reflect"  型を確認できる ex)reflect.TypeOf(1)
 
@@ -25,8 +25,8 @@ var users = [] User{
 func main() {
 	e := echo.New()
 	e.GET("/", displayHome)
-	// e.GET("/users", Controllers.GetUsers)
-	e.GET("/users", getUsers)
+	e.GET("/users", Controllers.GetUsers)
+	// e.GET("/users", getUsers)
 	e.GET("/params", getParams)
 	e.GET("/users/:id", showUser)
 	e.POST("/users", createUser)
