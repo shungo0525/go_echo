@@ -12,7 +12,7 @@ type User struct {
 	Email string `json:"email"`
 }
 
-var users = [] User{
+var users = []User{
 	{1, "user1", "email1"},
 	{2, "user2", "email2"},
 	{3, "user3", "email3"},
