@@ -1,6 +1,7 @@
 package Controllers
 
 import (
+	"../model"
 	"net/http"
 	"strconv"
 	// "fmt"
@@ -8,13 +9,13 @@ import (
 	"github.com/labstack/echo"
 )
 
-type User struct {
-	Id    int    `json:"id"`
-	Name  string `json:"name"`
-	Email string `json:"email"`
-}
+// type User struct {
+// 	Id    int    `json:"id"`
+// 	Name  string `json:"name"`
+// 	Email string `json:"email"`
+// }
 
-var users = []User{
+var users = []model.User{
 	{1, "user1", "email1"},
 	{2, "user2", "email2"},
 	{3, "user3", "email3"},
@@ -27,7 +28,7 @@ func GetUsers(c echo.Context) error {
 }
 
 func ShowUser(c echo.Context) error {
-	user := new(User)
+	user := new(model.User)
 
 	// string -> int
 	paramId, _ := strconv.Atoi(c.Param("id"))
@@ -46,7 +47,7 @@ func CreateUser(c echo.Context) error {
 			maxUserId = users[i].Id
 		}
 	}
-	newUser := new(User)
+	newUser := new(model.User)
 	newUser.Id = maxUserId + 1
 	newUser.Name = c.FormValue("name")
 	newUser.Email = c.FormValue("email")
@@ -56,7 +57,7 @@ func CreateUser(c echo.Context) error {
 }
 
 func UpdateUser(c echo.Context) error {
-	user := new(User)
+	user := new(model.User)
 
 	// string -> int
 	paramId, _ := strconv.Atoi(c.Param("id"))
@@ -72,7 +73,7 @@ func UpdateUser(c echo.Context) error {
 }
 
 func DeleteUser(c echo.Context) error {
-	var newUsers = []User{}
+	var newUsers = []model.User{}
 	for i := 0; i < len(users); i++ {
 		paramsId, _ := strconv.Atoi(c.Param("id"))
 		if users[i].Id != paramsId {
