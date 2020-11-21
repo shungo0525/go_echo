@@ -10,26 +10,15 @@ import (
 	"github.com/labstack/echo" // go get -u github.com/labstack/echo/...
 )
 
-type User struct {
-	Id    int    `json:"id"`
-	Name  string `json:"name"`
-	Email string `json:"email"`
-}
-
-var users = []User{
-	{1, "user1", "email1"},
-	{2, "user2", "email2"},
-	{3, "user3", "email3"},
-}
-
 func main() {
 	e := echo.New()
 	e.GET("/", displayHome)
-	
+
 	// controllersに切り出し
 	e.GET("/users", Controllers.GetUsers)
 	e.GET("/users/:id", Controllers.ShowUser)
 	e.POST("/users", Controllers.CreateUser)
+	e.PUT("/users/:id", Controllers.UpdateUser)
 	e.DELETE("/users/:id", Controllers.DeleteUser)
 	e.Logger.Fatal(e.Start(":8080"))
 

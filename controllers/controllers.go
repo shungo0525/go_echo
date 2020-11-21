@@ -3,6 +3,7 @@ package Controllers
 import (
 	"net/http"
 	"strconv"
+	// "fmt"
 
 	"github.com/labstack/echo"
 )
@@ -52,6 +53,22 @@ func CreateUser(c echo.Context) error {
 
 	users = append(users, *newUser)
 	return c.JSON(http.StatusOK, users)
+}
+
+func UpdateUser(c echo.Context) error {
+	user := new(User)
+
+	// string -> int
+	paramId, _ := strconv.Atoi(c.Param("id"))
+	for i := 0; i < len(users); i++ {
+		if paramId == users[i].Id {
+			user = &users[i]
+		}
+	}
+	user.Name = c.FormValue("name")
+	user.Email = c.FormValue("email")
+
+	return c.JSON(http.StatusOK, user)
 }
 
 func DeleteUser(c echo.Context) error {
