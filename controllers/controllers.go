@@ -37,7 +37,12 @@ func ShowUser(c echo.Context) error {
 			user = &users[i]
 		}
 	}
-	return c.JSON(http.StatusOK, user)
+
+	if user.Id == 0 {
+		return echo.NewHTTPError(http.StatusNotFound, "Not Found")
+	} else {
+		return c.JSON(http.StatusOK, user)
+	}
 }
 
 func CreateUser(c echo.Context) error {
@@ -69,7 +74,11 @@ func UpdateUser(c echo.Context) error {
 	user.Name = c.FormValue("name")
 	user.Email = c.FormValue("email")
 
-	return c.JSON(http.StatusOK, user)
+	if user.Id == 0 {
+		return echo.NewHTTPError(http.StatusNotFound, "Not Found")
+	} else {
+		return c.JSON(http.StatusOK, user)
+	}
 }
 
 func DeleteUser(c echo.Context) error {
@@ -80,6 +89,11 @@ func DeleteUser(c echo.Context) error {
 			newUsers = append(newUsers, users[i])
 		}
 	}
-	users = newUsers
-	return c.JSON(http.StatusOK, users)
+
+	if (len(newUsers) == len(users)) {
+		return echo.NewHTTPError(http.StatusNotFound, "Not Found")
+	} else {
+		users = newUsers
+		return c.JSON(http.StatusOK, newUsers)
+	}
 }
