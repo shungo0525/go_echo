@@ -26,7 +26,8 @@ var users = []model.User{
 
 // MEMO: function名は大文字でないとだめ。
 func GetUsers(c echo.Context) error {
-	db.Index()
+	var users []model.User
+	users = db.Index()
 	return c.JSON(http.StatusOK, users)
 }
 

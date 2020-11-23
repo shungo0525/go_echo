@@ -7,15 +7,17 @@ import (
 	_ "github.com/go-sql-driver/mysql"  // $ go get -u github.com/go-sql-driver/mysql
 )
 
-func Db() {
-	// Index()
-	// show(1)
-	// insert("test-user", "email")
-	// update(1, "user-updated", "email-updated")
-	// delete(1)
-}
+// func main() {
+// 	Index()
+// 	// show(1)
+// 	// insert("test-user", "email")
+// 	// update(1, "user-updated", "email-updated")
+// 	// delete(1)
+// }
 
-func Index() {
+
+// funcの戻り値を指定
+func Index() []model.User {
 	fmt.Println("----index----")
 	db, err := sql.Open("mysql", "root:@/go_echo")
 	if err != nil {
@@ -29,6 +31,8 @@ func Index() {
 	}
 	defer rows.Close()
 
+	var users []model.User
+
 	for rows.Next() {
 		var user model.User
 		err := rows.Scan(&user.Id, &user.Name, &user.Email)
@@ -36,7 +40,10 @@ func Index() {
 			panic(err.Error())
 		}
 		fmt.Println(user.Id, user.Name, user.Email)
+		users =append(users, user)
+		fmt.Println(users)
 	}
+	return users
 }
 
 func show(id int) {
@@ -161,4 +168,4 @@ func delete(id int) {
 // SHOW COLUMNS FROM users;
 // SELECT * FROM users;
 
-// INSERT INTO users (name) VALUES ("user1"),("user2"),("user3");
+// insert into users (name, email) values ("user1", "email1");
