@@ -48,7 +48,13 @@ func Find(id int) model.User {
 	return user
 }
 
-func insert(db *gorm.DB, name string, email string) model.User{
+func Insert(name string, email string) model.User{
+	db, err := gorm.Open("mysql", "root:@/go_echo")
+  if err != nil {
+    panic(err)
+	}
+	defer db.Close()
+
 	user := model.User{Name: name, Email: email}
 	db.NewRecord(user)
 	// ポインタで呼ぶ
