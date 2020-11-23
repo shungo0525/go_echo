@@ -32,18 +32,15 @@ func GetUsers(c echo.Context) error {
 }
 
 func ShowUser(c echo.Context) error {
-	user := new(model.User)
+	var user model.User
 
 	// string -> int
 	paramId, _ := strconv.Atoi(c.Param("id"))
-	for i := 0; i < len(users); i++ {
-		if paramId == users[i].Id {
-			user = &users[i]
-		}
-	}
+
+	user = db.Show(paramId)
 
 	if user.Id == 0 {
-		return echo.NewHTTPError(http.StatusNotFound, "Not Found")
+		return echo.NewHTTPError(http.StatusNotFound, "Record Not Found")
 	} else {
 		return c.JSON(http.StatusOK, user)
 	}

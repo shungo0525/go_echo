@@ -46,8 +46,9 @@ func Index() []model.User {
 	return users
 }
 
-func show(id int) {
+func Show(id int) model.User {
 	fmt.Println("----show----")
+	fmt.Println(id)
 	db, err := sql.Open("mysql", "root:@/go_echo")
 	if err != nil {
 		panic(err.Error())
@@ -58,12 +59,13 @@ func show(id int) {
 	err = db.QueryRow("SELECT * FROM users WHERE id = ?", id).Scan(&user.Id, &user.Name, &user.Email)
 	switch {
 	case err == sql.ErrNoRows:
-		fmt.Println("record not found")
+		fmt.Println("No Rows")
 	case err != nil:
 		panic(err.Error())
 	default:
 		fmt.Println(user.Id, user.Name, user.Email)
 	}
+	return user
 }
 
 func insert(name string, email string) {
