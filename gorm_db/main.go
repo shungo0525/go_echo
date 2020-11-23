@@ -35,7 +35,13 @@ func FindAll() []model.User {
 	return users
 }
 
-func findById(db *gorm.DB, id int) model.User {
+func Find(id int) model.User {
+	db, err := gorm.Open("mysql", "root:@/go_echo")
+  if err != nil {
+    panic(err)
+	}
+	defer db.Close()
+
 	var user model.User
 	// ポインタで呼ぶ
 	db.First(&user, id)

@@ -17,10 +17,11 @@ func main() {
 
 	// controllersGormに切り出し
 	e.GET("/users", ControllersGorm.Index)
+	e.GET("/users/:id", ControllersGorm.Show)
 
 	// controllersに切り出し
 	// e.GET("/users", Controllers.GetUsers)
-	e.GET("/users/:id", Controllers.ShowUser)
+	// e.GET("/users/:id", Controllers.ShowUser)
 	e.POST("/users", Controllers.CreateUser)
 	e.PUT("/users/:id", Controllers.UpdateUser)
 	e.DELETE("/users/:id", Controllers.DeleteUser)

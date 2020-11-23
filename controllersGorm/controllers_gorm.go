@@ -5,8 +5,7 @@ import (
 	"../gorm_db"
 
 	"net/http"
-	// "strconv"
-	"fmt"
+	"strconv"
 
 	"github.com/labstack/echo"
 )
@@ -14,6 +13,17 @@ import (
 func Index(c echo.Context) error {
 	var users []model.User
 	users = gorm_db.FindAll()
-	fmt.Println(users)
 	return c.JSON(http.StatusOK, users)
+}
+
+func Show(c echo.Context) error {
+	var user model.User
+	paramId, _ := strconv.Atoi(c.Param("id"))
+	user = gorm_db.Find(paramId)
+	
+	if user.Id == 0 {
+		return echo.NewHTTPError(http.StatusNotFound, "Record Not Found")
+	} else {
+		return c.JSON(http.StatusOK, user)
+	}
 }
