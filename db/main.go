@@ -68,7 +68,7 @@ func Show(id int) model.User {
 	return user
 }
 
-func insert(name string, email string) {
+func Insert(name string, email string) model.User {
 	fmt.Println("----insert----")
 	db, err := sql.Open("mysql", "root:@/go_echo")
 	if err != nil {
@@ -96,6 +96,7 @@ func insert(name string, email string) {
 	var user model.User
 	err = db.QueryRow("SELECT * FROM users WHERE id = ?", lastInsertID).Scan(&user.Id, &user.Name, &user.Email)
 	fmt.Println(user.Id, user.Name, user.Email)
+	return user
 }
 
 func update(id int, name string, email string) {

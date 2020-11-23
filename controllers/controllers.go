@@ -47,19 +47,10 @@ func ShowUser(c echo.Context) error {
 }
 
 func CreateUser(c echo.Context) error {
-	maxUserId := 0
-	for i := 0; i < len(users); i++ {
-		if maxUserId < users[i].Id {
-			maxUserId = users[i].Id
-		}
-	}
-	newUser := new(model.User)
-	newUser.Id = maxUserId + 1
-	newUser.Name = c.FormValue("name")
-	newUser.Email = c.FormValue("email")
-
-	users = append(users, *newUser)
-	return c.JSON(http.StatusOK, users)
+	var user model.User
+	user = db.Insert(c.FormValue("name"), c.FormValue("email"))
+	
+	return c.JSON(http.StatusOK, user)
 }
 
 func UpdateUser(c echo.Context) error {
