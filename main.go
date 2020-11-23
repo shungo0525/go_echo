@@ -19,12 +19,13 @@ func main() {
 	e.GET("/users", ControllersGorm.Index)
 	e.GET("/users/:id", ControllersGorm.Show)
 	e.POST("/users", ControllersGorm.Create)
+	e.PUT("/users/:id", ControllersGorm.Update)
 
 	// controllersに切り出し
 	// e.GET("/users", Controllers.GetUsers)
 	// e.GET("/users/:id", Controllers.ShowUser)
 	// e.POST("/users", Controllers.CreateUser)
-	e.PUT("/users/:id", Controllers.UpdateUser)
+	// e.PUT("/users/:id", Controllers.UpdateUser)
 	e.DELETE("/users/:id", Controllers.DeleteUser)
 	e.Logger.Fatal(e.Start(":8080"))
 

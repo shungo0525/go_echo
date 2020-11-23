@@ -62,7 +62,13 @@ func Insert(name string, email string) model.User{
 	return user
 }
 
-func update(db *gorm.DB, id int, name string, email string) model.User{
+func Update(id int, name string, email string) model.User{
+	db, err := gorm.Open("mysql", "root:@/go_echo")
+  if err != nil {
+    panic(err)
+	}
+	defer db.Close()
+
 	var user model.User
 	db.Model(&user).Where("id = ?", id).Update("name", name, "email", email)
 	db.First(&user, id)

@@ -34,3 +34,12 @@ func Create(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, user)
 }
+
+func Update(c echo.Context) error {
+	var user model.User
+	paramId, _ := strconv.Atoi(c.Param("id"))
+
+	user = gorm_db.Update(paramId, c.FormValue("name"), c.FormValue("email"))
+
+	return c.JSON(http.StatusOK, user)
+}
