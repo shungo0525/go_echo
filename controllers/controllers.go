@@ -49,22 +49,17 @@ func ShowUser(c echo.Context) error {
 func CreateUser(c echo.Context) error {
 	var user model.User
 	user = db.Insert(c.FormValue("name"), c.FormValue("email"))
-	
+
 	return c.JSON(http.StatusOK, user)
 }
 
 func UpdateUser(c echo.Context) error {
-	user := new(model.User)
+	var user model.User
 
 	// string -> int
 	paramId, _ := strconv.Atoi(c.Param("id"))
-	for i := 0; i < len(users); i++ {
-		if paramId == users[i].Id {
-			user = &users[i]
-		}
-	}
-	user.Name = c.FormValue("name")
-	user.Email = c.FormValue("email")
+
+	user = db.Update(paramId, c.FormValue("name"), c.FormValue("email"))
 
 	if user.Id == 0 {
 		return echo.NewHTTPError(http.StatusNotFound, "Not Found")

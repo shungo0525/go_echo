@@ -99,7 +99,7 @@ func Insert(name string, email string) model.User {
 	return user
 }
 
-func update(id int, name string, email string) {
+func Update(id int, name string, email string) model.User {
 	fmt.Println("----update----")
 	db, err := sql.Open("mysql", "root:@/go_echo")
 	if err != nil {
@@ -128,6 +128,7 @@ func update(id int, name string, email string) {
 	var user model.User
 	err = db.QueryRow("SELECT * FROM users WHERE id = ?", id).Scan(&user.Id, &user.Name, &user.Email)
 	fmt.Println(user.Id, user.Name, user.Email)
+	return user
 }
 
 func delete(id int) {
