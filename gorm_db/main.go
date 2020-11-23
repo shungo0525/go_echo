@@ -20,18 +20,28 @@ func main() {
 
 	fmt.Println(findAll(db))
 	fmt.Println(findById(db, 8))
-
+	fmt.Println(insert(db, "user", "email"))
 }
 
 func findAll(db *gorm.DB) []model.User {
 	var allUsers []model.User
+	// ポインタで呼ぶ
 	db.Find(&allUsers)
 	return allUsers
 }
 
 func findById(db *gorm.DB, id int) model.User {
 	var user model.User
+	// ポインタで呼ぶ
 	db.First(&user, id)
+	return user
+}
+
+func insert(db *gorm.DB, name string, email string) model.User{
+	user := model.User{Name: name, Email: email}
+	db.NewRecord(user)
+	// ポインタで呼ぶ
+	db.Create(&user)
 	return user
 }
 
