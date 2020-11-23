@@ -131,7 +131,7 @@ func Update(id int, name string, email string) model.User {
 	return user
 }
 
-func delete(id int) {
+func Delete(id int) model.User {
 	fmt.Println("----delete----")
 	db, err := sql.Open("mysql", "root:@/go_echo")
 	if err != nil {
@@ -160,6 +160,7 @@ func delete(id int) {
 	fmt.Println(rowsAffect)
 
 	fmt.Println(user.Id, user.Name, user.Email)
+	return user
 }
 
 // 事前にmysqlでDBを作成/データをinsert

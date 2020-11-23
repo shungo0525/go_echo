@@ -6,23 +6,9 @@ import (
 
 	"net/http"
 	"strconv"
-	// "fmt"
 
 	"github.com/labstack/echo"
 )
-
-// type User struct {
-// 	Id    int    `json:"id"`
-// 	Name  string `json:"name"`
-// 	Email string `json:"email"`
-// }
-
-var users = []model.User{
-	{1, "user1", "email1"},
-	{2, "user2", "email2"},
-	{3, "user3", "email3"},
-	{4, "user4", "email4"},
-}
 
 // MEMO: function名は大文字でないとだめ。
 func GetUsers(c echo.Context) error {
@@ -69,18 +55,14 @@ func UpdateUser(c echo.Context) error {
 }
 
 func DeleteUser(c echo.Context) error {
-	var newUsers = []model.User{}
-	for i := 0; i < len(users); i++ {
-		paramsId, _ := strconv.Atoi(c.Param("id"))
-		if users[i].Id != paramsId {
-			newUsers = append(newUsers, users[i])
-		}
-	}
+	var user model.User
+	paramId, _ := strconv.Atoi(c.Param("id"))
 
-	if (len(newUsers) == len(users)) {
+	user = db.Delete(paramId)
+
+	if user.Id == 0 {
 		return echo.NewHTTPError(http.StatusNotFound, "Not Found")
 	} else {
-		users = newUsers
-		return c.JSON(http.StatusOK, newUsers)
+		return c.JSON(http.StatusOK, user)
 	}
 }
