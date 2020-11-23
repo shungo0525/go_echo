@@ -22,13 +22,13 @@ func main() {
 	e.PUT("/users/:id", ControllersGorm.Update)
 	e.DELETE("/users/:id", ControllersGorm.Delete)
 
-	// controllersに切り出し
+	// controllersに切り出し(標準のDB)
 	// e.GET("/users", Controllers.GetUsers)
 	// e.GET("/users/:id", Controllers.ShowUser)
 	// e.POST("/users", Controllers.CreateUser)
 	// e.PUT("/users/:id", Controllers.UpdateUser)
 	// e.DELETE("/users/:id", Controllers.DeleteUser)
-	
+
 	e.Logger.Fatal(e.Start(":8080"))
 }
 

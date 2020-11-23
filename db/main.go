@@ -7,15 +7,6 @@ import (
 	_ "github.com/go-sql-driver/mysql"  // $ go get -u github.com/go-sql-driver/mysql
 )
 
-// func main() {
-// 	Index()
-// 	// show(1)
-// 	// insert("test-user", "email")
-// 	// update(1, "user-updated", "email-updated")
-// 	// delete(1)
-// }
-
-
 // funcの戻り値を指定
 func Index() []model.User {
 	fmt.Println("----index----")
