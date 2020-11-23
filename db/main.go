@@ -13,10 +13,10 @@ type User struct {
 
 func main() {
 	index()
-	show()
-	insert()
-	update()
-	delete()
+	show(1)
+	insert("test")
+	update(3, "user-3")
+	delete(7)
 }
 
 func index() {
@@ -43,7 +43,7 @@ func index() {
 	}
 }
 
-func show() {
+func show(id int) {
 	fmt.Println("----show----")
 	db, err := sql.Open("mysql", "root:@/echo_test")
 	if err != nil {
@@ -52,7 +52,7 @@ func show() {
 	defer db.Close()
 
   var user User
-	err = db.QueryRow("SELECT * FROM users WHERE id = ?", 1).Scan(&user.ID, &user.Name)
+	err = db.QueryRow("SELECT * FROM users WHERE id = ?", id).Scan(&user.ID, &user.Name)
 	switch {
 	case err == sql.ErrNoRows:
 		fmt.Println("record not found")
@@ -63,7 +63,7 @@ func show() {
 	}
 }
 
-func insert() {
+func insert(name string) {
 	fmt.Println("----insert----")
 	db, err := sql.Open("mysql", "root:@/echo_test")
 	if err != nil {
@@ -77,7 +77,7 @@ func insert() {
 	}
 	defer stmtInsert.Close()
 
-	result, err := stmtInsert.Exec("user")
+	result, err := stmtInsert.Exec(name)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -89,7 +89,7 @@ func insert() {
 	fmt.Println(lastInsertID)
 }
 
-func update() {
+func update(id int, name string) {
 	fmt.Println("----update----")
 	db, err := sql.Open("mysql", "root:@/echo_test")
 	if err != nil {
@@ -103,7 +103,7 @@ func update() {
 	}
 	defer stmtUpdate.Close()
 
-	result, err := stmtUpdate.Exec("update-user", 4)
+	result, err := stmtUpdate.Exec(name, id)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -115,7 +115,7 @@ func update() {
 	fmt.Println(rowsAffect)
 }
 
-func delete() {
+func delete(id int) {
 fmt.Println("----delete----")
 	db, err := sql.Open("mysql", "root:@/echo_test")
 	if err != nil {
@@ -129,7 +129,7 @@ fmt.Println("----delete----")
 	}
 	defer stmtDelete.Close()
 
-	result, err := stmtDelete.Exec(4)
+	result, err := stmtDelete.Exec(id)
 	if err != nil {
 		panic(err.Error())
 	}
