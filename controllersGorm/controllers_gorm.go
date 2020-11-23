@@ -43,3 +43,11 @@ func Update(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, user)
 }
+
+func Delete(c echo.Context) error {
+	// var user model.User
+	paramId, _ := strconv.Atoi(c.Param("id"))
+	gorm_db.Delete(paramId)
+
+	return c.JSON(http.StatusOK, "Deleted")
+}

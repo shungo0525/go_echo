@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./Controllers"
+	// "./Controllers"
 	"./ControllersGorm"
 	"net/http"
 	// "strconv"
@@ -20,20 +20,16 @@ func main() {
 	e.GET("/users/:id", ControllersGorm.Show)
 	e.POST("/users", ControllersGorm.Create)
 	e.PUT("/users/:id", ControllersGorm.Update)
+	e.DELETE("/users/:id", ControllersGorm.Delete)
 
 	// controllersに切り出し
 	// e.GET("/users", Controllers.GetUsers)
 	// e.GET("/users/:id", Controllers.ShowUser)
 	// e.POST("/users", Controllers.CreateUser)
 	// e.PUT("/users/:id", Controllers.UpdateUser)
-	e.DELETE("/users/:id", Controllers.DeleteUser)
+	// e.DELETE("/users/:id", Controllers.DeleteUser)
+	
 	e.Logger.Fatal(e.Start(":8080"))
-
-	// e.GET("/users", getUsers)
-	// e.GET("/users/:id", showUser)
-	// e.POST("/users", createUser)
-	// e.GET("/params", getParams)
-	// e.DELETE("/users/:id", deleteUser)
 }
 
 func displayHome(c echo.Context) error {

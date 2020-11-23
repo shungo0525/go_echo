@@ -75,4 +75,23 @@ func Update(id int, name string, email string) model.User{
 	return user
 }
 
+func Delete(id int) {
+	db, err := gorm.Open("mysql", "root:@/go_echo")
+  if err != nil {
+    panic(err)
+	}
+	defer db.Close()
+
+	var user model.User
+	db.First(&user, id)
+	db.Delete(user)
+}
+
+// func deleteByID(id int, db *gorm.DB) {
+//     db.Where("id = ?", id).Delete(user)
+// }
+
+// deleteByID(1, db)
+// fmt.Println(findAll(db)) // []
+
 // https://qiita.com/kai1993/items/389cdec6a01bd527525b
