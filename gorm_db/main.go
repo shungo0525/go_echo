@@ -3,30 +3,22 @@ package gorm_db
 import (
 	"../model"
   "github.com/jinzhu/gorm"
-  // "strings"
-  // "time"
-  // "fmt"
+  "fmt"
   _"github.com/go-sql-driver/mysql"
 )
 
-// func main() {
-//   db, err := gorm.Open("mysql", "root:@/go_echo")
-//   if err != nil {
-//     panic(err)
-// 	}
-// 	defer db.Close()
+func initDB() *gorm.DB {
+	db, err := gorm.Open("mysql", "root:@/go_echo")
 
-// 	fmt.Println(findAll(db))
-// 	fmt.Println(findById(db, 8))
-// 	// fmt.Println(insert(db, "user", "email"))
-//   // fmt.Println(update(db, 7, "useruser", "email"))
-// }
+	if err != nil {
+		panic(err)
+	}
+
+	return db
+}
 
 func FindAll() []model.User {
-	db, err := gorm.Open("mysql", "root:@/go_echo")
-  if err != nil {
-    panic(err)
-	}
+	db := initDB()
 	defer db.Close()
 
 	var users []model.User
@@ -36,10 +28,7 @@ func FindAll() []model.User {
 }
 
 func Find(id int) model.User {
-	db, err := gorm.Open("mysql", "root:@/go_echo")
-  if err != nil {
-    panic(err)
-	}
+	db := initDB()
 	defer db.Close()
 
 	var user model.User
@@ -49,10 +38,7 @@ func Find(id int) model.User {
 }
 
 func Insert(name string, email string) model.User{
-	db, err := gorm.Open("mysql", "root:@/go_echo")
-  if err != nil {
-    panic(err)
-	}
+	db := initDB()
 	defer db.Close()
 
 	user := model.User{Name: name, Email: email}
@@ -63,35 +49,23 @@ func Insert(name string, email string) model.User{
 }
 
 func Update(id int, name string, email string) model.User{
-	db, err := gorm.Open("mysql", "root:@/go_echo")
-  if err != nil {
-    panic(err)
-	}
+	db := initDB()
 	defer db.Close()
 
 	var user model.User
-	db.Model(&user).Where("id = ?", id).Update("name", name, "email", email)
 	db.First(&user, id)
+	fmt.Println(user)
+	db.Model(&user).Where("id = ?", id).Updates(model.User{Name: name, Email: email})
 	return user
 }
 
 func Delete(id int) {
-	db, err := gorm.Open("mysql", "root:@/go_echo")
-  if err != nil {
-    panic(err)
-	}
+	db := initDB()
 	defer db.Close()
 
 	var user model.User
 	db.First(&user, id)
 	db.Delete(user)
 }
-
-// func deleteByID(id int, db *gorm.DB) {
-//     db.Where("id = ?", id).Delete(user)
-// }
-
-// deleteByID(1, db)
-// fmt.Println(findAll(db)) // []
 
 // https://qiita.com/kai1993/items/389cdec6a01bd527525b
