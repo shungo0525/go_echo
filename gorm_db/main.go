@@ -2,9 +2,9 @@ package gorm_db
 
 import (
 	"../model"
-  "github.com/jinzhu/gorm"
-  "fmt"
-  _"github.com/go-sql-driver/mysql"
+	"fmt"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/jinzhu/gorm"
 )
 
 func initDB() *gorm.DB {
@@ -37,7 +37,7 @@ func Find(id int) model.User {
 	return user
 }
 
-func Insert(name string, email string) model.User{
+func Insert(name string, email string) model.User {
 	db := initDB()
 	defer db.Close()
 
@@ -48,7 +48,7 @@ func Insert(name string, email string) model.User{
 	return user
 }
 
-func Update(id int, name string, email string) model.User{
+func Update(id int, name string, email string) model.User {
 	db := initDB()
 	defer db.Close()
 

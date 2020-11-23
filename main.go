@@ -1,4 +1,5 @@
 package main
+// gofmt -w ファイル名: コード整形
 
 import (
 	// "./Controllers"

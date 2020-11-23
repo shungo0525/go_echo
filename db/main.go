@@ -2,9 +2,9 @@ package db
 
 import (
 	"../model"
-	"fmt"
 	"database/sql"
-	_ "github.com/go-sql-driver/mysql"  // $ go get -u github.com/go-sql-driver/mysql
+	"fmt"
+	_ "github.com/go-sql-driver/mysql" // $ go get -u github.com/go-sql-driver/mysql
 )
 
 // funcの戻り値を指定
@@ -31,7 +31,7 @@ func Index() []model.User {
 			panic(err.Error())
 		}
 		fmt.Println(user.Id, user.Name, user.Email)
-		users =append(users, user)
+		users = append(users, user)
 		fmt.Println(users)
 	}
 	return users
@@ -46,7 +46,7 @@ func Show(id int) model.User {
 	}
 	defer db.Close()
 
-  var user model.User
+	var user model.User
 	err = db.QueryRow("SELECT * FROM users WHERE id = ?", id).Scan(&user.Id, &user.Name, &user.Email)
 	switch {
 	case err == sql.ErrNoRows:

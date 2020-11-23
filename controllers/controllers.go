@@ -1,8 +1,8 @@
 package Controllers
 
 import (
-	"../model"
 	"../db"
+	"../model"
 
 	"net/http"
 	"strconv"

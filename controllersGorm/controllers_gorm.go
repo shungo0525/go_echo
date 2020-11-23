@@ -1,8 +1,8 @@
 package ControllersGorm
 
 import (
-	"../model"
 	"../gorm_db"
+	"../model"
 
 	"net/http"
 	"strconv"
