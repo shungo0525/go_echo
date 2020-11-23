@@ -1,4 +1,4 @@
-package main
+package db
 
 import (
 	"../model"
@@ -7,15 +7,15 @@ import (
 	_ "github.com/go-sql-driver/mysql"  // $ go get -u github.com/go-sql-driver/mysql
 )
 
-func main() {
-	index()
-	show(1)
-	insert("test-user", "email")
-	update(1, "user-updated", "email-updated")
-	delete(1)
+func Db() {
+	// Index()
+	// show(1)
+	// insert("test-user", "email")
+	// update(1, "user-updated", "email-updated")
+	// delete(1)
 }
 
-func index() {
+func Index() {
 	fmt.Println("----index----")
 	db, err := sql.Open("mysql", "root:@/go_echo")
 	if err != nil {

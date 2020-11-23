@@ -2,6 +2,8 @@ package Controllers
 
 import (
 	"../model"
+	"../db"
+
 	"net/http"
 	"strconv"
 	// "fmt"
@@ -24,6 +26,7 @@ var users = []model.User{
 
 // MEMO: function名は大文字でないとだめ。
 func GetUsers(c echo.Context) error {
+	db.Index()
 	return c.JSON(http.StatusOK, users)
 }
 
