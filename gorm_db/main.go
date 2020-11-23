@@ -1,34 +1,38 @@
-package main
+package gorm_db
 
 import (
 	"../model"
   "github.com/jinzhu/gorm"
   // "strings"
   // "time"
-  "fmt"
+  // "fmt"
   _"github.com/go-sql-driver/mysql"
 )
 
-func main() {
-  db, err := gorm.Open("mysql", "root:@/go_echo")
+// func main() {
+//   db, err := gorm.Open("mysql", "root:@/go_echo")
+//   if err != nil {
+//     panic(err)
+// 	}
+// 	defer db.Close()
 
+// 	fmt.Println(findAll(db))
+// 	fmt.Println(findById(db, 8))
+// 	// fmt.Println(insert(db, "user", "email"))
+//   // fmt.Println(update(db, 7, "useruser", "email"))
+// }
+
+func FindAll() []model.User {
+	db, err := gorm.Open("mysql", "root:@/go_echo")
   if err != nil {
     panic(err)
 	}
-
 	defer db.Close()
 
-	fmt.Println(findAll(db))
-	fmt.Println(findById(db, 8))
-	// fmt.Println(insert(db, "user", "email"))
-  fmt.Println(update(db, 7, "useruser", "email"))
-}
-
-func findAll(db *gorm.DB) []model.User {
-	var allUsers []model.User
+	var users []model.User
 	// ポインタで呼ぶ
-	db.Find(&allUsers)
-	return allUsers
+	db.Find(&users)
+	return users
 }
 
 func findById(db *gorm.DB, id int) model.User {

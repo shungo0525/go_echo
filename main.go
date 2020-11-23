@@ -2,6 +2,7 @@ package main
 
 import (
 	"./Controllers"
+	"./ControllersGorm"
 	"net/http"
 	// "strconv"
 	// "fmt"
@@ -14,8 +15,11 @@ func main() {
 	e := echo.New()
 	e.GET("/", displayHome)
 
+	// controllersGormに切り出し
+	e.GET("/users", ControllersGorm.Index)
+
 	// controllersに切り出し
-	e.GET("/users", Controllers.GetUsers)
+	// e.GET("/users", Controllers.GetUsers)
 	e.GET("/users/:id", Controllers.ShowUser)
 	e.POST("/users", Controllers.CreateUser)
 	e.PUT("/users/:id", Controllers.UpdateUser)
